@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         BiliBili稿件批量举报
 // @namespace    https://t.me/bilibilibatchreport
-// @version      0.1.4
+// @version      0.1.5
 // @description  BiliBili屎太多，黑名单不够用了，我很痛苦，于是写了这个脚本尝试将痛苦转移到发布视频的人身上，我准备了三个举报理由，点击按钮即可切换
 // @author       You
 // @match        https://space.bilibili.com/*
@@ -45,12 +45,14 @@ function checkPage() {
         const currentPage = parseInt(urlParams.get('pn'));
 
         // Get total number of pages from the page element
-        const totalPagesElement = document.querySelector('span.be-pager-total');
+        const totalPagesElement = document.evaluate('//*[@id="submit-video-list"]/ul[3]/span[1]', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+
         if (totalPagesElement) {
             const totalText = totalPagesElement.innerText;
             const totalMatches = totalText.match(/共 (\d+) 页/);
             if (totalMatches && totalMatches.length > 1) {
                 const totalPages = parseInt(totalMatches[1]);
+                console.log(totalPages)
 
                 // Get space ID from the URL
                 const spaceIdMatches = window.location.href.match(/space.bilibili.com\/(\d+)\//);
@@ -376,13 +378,26 @@ function addCopyIdButton() {
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
+async function runAfterDelay() {
+    await new Promise(resolve => setTimeout(resolve, 1000)); // 等待5秒钟
+
+    if (window.location.hostname === "space.bilibili.com" && window.location.pathname.includes("/video")) {
+        checkPage();
+        addButton(); // 添加举报按钮
+        addProfileSwitchButton(); // 添加切换profile的按钮
+        addCopyIdButton(); // 添加复制用户ID的按钮
+        //fuckBilibiliShitVideo();
+    }
+}
+
+
+
 
 window.onload = async function() {
-        if (window.location.hostname === "space.bilibili.com") {
-            checkPage();
-            addButton(); // 添加举报按钮
-            addProfileSwitchButton(); // 添加切换profile的按钮
-            addCopyIdButton(); // 添加复制用户ID的按钮
+        if (window.location.hostname === "space.bilibili.com" && window.location.pathname.includes("/video")) {
+            
+            runAfterDelay();
+            
 
         }
         else {
