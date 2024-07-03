@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         BiliBili稿件批量举报
 // @namespace    https://t.me/bilibilibatchreport
-// @version      0.1.5
+// @version      0.1.6
 // @description  BiliBili屎太多，黑名单不够用了，我很痛苦，于是写了这个脚本尝试将痛苦转移到发布视频的人身上，我准备了三个举报理由，点击按钮即可切换
 // @author       You
 // @match        https://space.bilibili.com/*
