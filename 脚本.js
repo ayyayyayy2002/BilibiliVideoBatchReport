@@ -1,6 +1,6 @@
 // ==UserScript==
-// @name         BiliBili稿件批量举报
-// @namespace    https://t.me/bilibilibatchreport
+// @name         BiliBili视频批量举报
+// @namespace    https://github.com/ayyayyayy2002/BilibiliVideoBatchReport
 // @version      0.1.6
 // @description  BiliBili屎太多，黑名单不够用了，我很痛苦，于是写了这个脚本尝试将痛苦转移到发布视频的人身上，我准备了三个举报理由，点击按钮即可切换
 // @author       You
@@ -16,6 +16,7 @@
 // @run-at       document-end
 // @downloadURL https://update.greasyfork.org/scripts/497079/BiliBili%E7%A8%BF%E4%BB%B6%E6%89%B9%E9%87%8F%E4%B8%BE%E6%8A%A5.user.js
 // @updateURL https://update.greasyfork.org/scripts/497079/BiliBili%E7%A8%BF%E4%BB%B6%E6%89%B9%E9%87%8F%E4%B8%BE%E6%8A%A5.meta.js
+// @icon         https://i2.hdslb.com/bfs/app/8920e6741fc2808cce5b81bc27abdbda291655d3.png@240w_240h_1c_1s_!web-avatar-space-header.avif
 // ==/UserScript==
 
 // 存储三个profile的举报理由和tid
