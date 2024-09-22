@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name         BiliBili视频批量举报
+// @name         BiliBili稿件批量举报
 // @namespace    https://github.com/ayyayyayy2002/BilibiliVideoBatchReport
-// @version      0.1.6
+// @version      0.1.7
 // @description  BiliBili屎太多，黑名单不够用了，我很痛苦，于是写了这个脚本尝试将痛苦转移到发布视频的人身上，我准备了三个举报理由，点击按钮即可切换
 // @author       You
 // @match        https://space.bilibili.com/*
@@ -9,14 +9,15 @@
 // @grant        GM_setValue
 // @grant        GM_getValue
 // @grant        GM_xmlhttpRequest
+// @exclude      https://space.bilibili.com/*/dynamic
 // @grant        GM_registerMenuCommand
 // @grant        GM_unregisterMenuCommand
 // @connect      api.bilibili.com
 // @connect      www.bilibili.com
 // @run-at       document-end
+// @icon         https://i2.hdslb.com/bfs/app/8920e6741fc2808cce5b81bc27abdbda291655d3.png@240w_240h_1c_1s_!web-avatar-space-header.avif
 // @downloadURL https://update.greasyfork.org/scripts/497079/BiliBili%E7%A8%BF%E4%BB%B6%E6%89%B9%E9%87%8F%E4%B8%BE%E6%8A%A5.user.js
 // @updateURL https://update.greasyfork.org/scripts/497079/BiliBili%E7%A8%BF%E4%BB%B6%E6%89%B9%E9%87%8F%E4%B8%BE%E6%8A%A5.meta.js
-// @icon         https://i2.hdslb.com/bfs/app/8920e6741fc2808cce5b81bc27abdbda291655d3.png@240w_240h_1c_1s_!web-avatar-space-header.avif
 // ==/UserScript==
 
 // 存储三个profile的举报理由和tid
@@ -82,12 +83,20 @@ function checkPage() {
 
 const profiles = [
   {
-    tid: 10014,
-    reason: '色情视频，色情游戏，视频侮辱国家领导人，宣扬“台独”，有政治隐喻'
+    tid: 3,//色情低俗
+    reason: '视频封面标题以及内容违规，推广以原神、碧蓝档案等二次元游戏人物为主角的色情视频，以未成年人为主角的色情游戏，，并在置顶动态以及评论内向站外色情网站引流，严重危害青少年用户的身心健康'
   },
   {
-    tid: 10018,
-    reason: '视频内容是色情游戏，用评论和置顶动态贩卖色情内容盈利'
+    tid: 9,
+    reason: '此视频煽动观看者引战。破坏社区风气，煽动观众举报视频'
+  },
+  {
+    tid: 3,//色情低俗
+    reason: '视频封面标题以及内容违规，推广以原神、碧蓝档案等二次元游戏人物为主角的色情视频，以未成年人为主角的色情游戏，关键词为“盯榨、捣蒜、红绿灯”的性暗示内容视频，并在充电视频，置顶动态以及评论内向站外色情网站引流'
+  },
+  {
+    tid: 10014,//政治谣言
+    reason: '视频封面标题以及内容违规，推广以原神、碧蓝档案等二次元游戏人物为主角的色情视频，以未成年人为主角的色情游戏，关键词为“盯榨、捣蒜、红绿灯”的性暗示内容视频，并在充电视频，置顶动态以及评论内向站外色情网站引流'
   },
   {
     tid: 10014, // 占位备用
@@ -151,7 +160,7 @@ function updateDiagnosticInfo(content) {
   scrollToBottom();
 }
 
-let delayInMilliseconds = 2100; // 设置延迟时间
+let delayInMilliseconds = 2000; // 设置延迟时间
 
 // 更新 sendReportRequest 函数，在显示完最后一次举报返回值后显示“本页全部举报完成”，然后调用 clickPreviousPageButton 函数
 function sendReportRequest() {
@@ -269,7 +278,7 @@ function fuckVideo(aid) {
     if (responseJson.code === -352) {
       updateDiagnosticInfo('<strong style="font-size: 2em; color: red;">遇到错误 -352，请完成人机验证</strong><br>');
       if (encounteredError352 === true) {
-    var newURL = "https://www.bilibili.com/appeal/?avid=14692212";
+    var newURL = `https://www.bilibili.com/appeal/?avid=${aid}`;
     var newTab = window.open(newURL, '_blank');
 }
       encounteredError352 = true;
